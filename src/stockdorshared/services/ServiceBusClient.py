@@ -1,12 +1,17 @@
 """Azure Service Bus Client."""
+from azure.servicebus.aio import ServiceBusClient
+
 from stockdorshared.services.AbstractBrokerClient import AbstractBrokerClient
 
 
-class ServiceBusClient(AbstractBrokerClient):
+class AzureServiceBusClient(AbstractBrokerClient):
     def __init__(self, connection_str, queue_name, callback):
         self.connection_str = connection_str
         self.queue_name = queue_name
         self.callback = callback
+
+    async def send_message(self, message):
+        return super().send_message(message)
 
     async def receive_messages(self):
         servicebus_client = ServiceBusClient.from_connection_string(
