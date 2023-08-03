@@ -1,0 +1,1 @@
+# stockdor-shared
