@@ -1,3 +1,5 @@
 aiormq==6.7.7
 azure-servicebus==7.11.1
 azure-storage-queue==12.6.0
+bson==0.5.10
+pydantic==1.10.12
