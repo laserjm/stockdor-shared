@@ -51,6 +51,7 @@ if __name__ == "__main__":
     loop.run_until_complete(main())
 """
 import aiormq
+from aiormq.abc import DeliveredMessage
 
 from stockdorshared.services.AbstractBrokerClient import AbstractBrokerClient
 
@@ -75,11 +76,21 @@ class AiormqAmqpClient(AbstractBrokerClient):
 
     async def receive_messages(self, receive_callback):
         channel = await self._get_channel()
+        await channel.basic_qos(prefetch_count=1)
         # Declaring queue
         declare_ok = await channel.queue_declare(self.queue_name)
-        consume_ok = await channel.basic_consume(
-            declare_ok.queue, receive_callback, no_ack=True
-        )
+        try:
+            # await channel.basic_consume(declare_ok.queue, receive_callback, no_ack=True)
+            message: DeliveredMessage = await channel.basic_get(self.queue_name)
+            print(message.body.decode())
+        # will be recovered
+        except aiormq.exceptions.ChannelClosed as e:
+            print(e.msg)
+        # consume_ok = await channel.basic_consume(
+        #     declare_ok.queue, receive_callback, no_ack=True
+        # )
+        if self.connection:
+            await self.connection.close()
 
     async def send_message(self, message):
         channel = await self._get_channel()
