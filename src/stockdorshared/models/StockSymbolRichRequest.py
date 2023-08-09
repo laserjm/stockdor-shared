@@ -1,8 +1,5 @@
 from typing import Optional
-from bson import ObjectId
-from pydantic import BaseModel, Field
-
-from stockdorshared.models.PyObjectId import PyObjectId
+from pydantic import BaseModel
 
 
 class StockSymbolRichRequest(BaseModel):
