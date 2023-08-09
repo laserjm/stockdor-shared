@@ -2,9 +2,10 @@ from bson import ObjectId
 from pydantic import BaseModel, Field
 
 from stockdorshared.models.PyObjectId import PyObjectId
+from stockdorshared.models.StockSymbolRichRequest import StockSymbolRichRequest
 
 
-class StockSymbolRich(BaseModel):
+class StockSymbolRich(StockSymbolRichRequest):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
 
     class Config:
