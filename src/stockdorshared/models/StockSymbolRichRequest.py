@@ -4,10 +4,28 @@ from pydantic import BaseModel
 
 class StockSymbolRichRequest(BaseModel):
     symbol: Optional[str]
-    dividend_yield: Optional[float]  # Dividendenrendite
-    dividend_yield_calculated: Optional[float]  # self calculated
-    dividend_growth_avg_last_5y: Optional[float]  # Dividendenwachstum -- own calc
-    dividend_cagr_5y: Optional[float]  # Compound Annual Growth Rate
-    dividend_payout_ratio: Optional[float]  # Ausschüttungsquote --
-    dividend_payout_ratio_calc: Optional[float]  # Ausschüttungsquote -- own calc
-    dividend_payout_ratio_cash: Optional[float]  # Ausschüttungsquote Cash --
+    logo: Optional[str]
+    company_name: Optional[str]
+    isin: Optional[str]
+    symbol: Optional[str]
+    price: Optional[float]
+    country: Optional[str]
+    currency: Optional[str]
+    sector: Optional[str]
+    industry: Optional[str]
+    market_cap: Optional[float]
+    # dividend block start!!!!
+    dividend_num_annual_payments: Optional[int]
+    dividend_total_annual: Optional[float]
+    dividend_total_ttm: Optional[float]
+    dividend_yield_annual: Optional[float]
+    dividend_yield_annual_price_before_payout: Optional[float]
+    dividend_yield_ttm: Optional[float]
+    dividend_payout_ratio_annual_net_income: Optional[float]
+    dividend_payout_ratio_annual_free_cash_flow: Optional[float]
+    dividend_consecutive_yearsraises: Optional[float]
+    dividend_years_no_lowered: Optional[float]
+    dividend_growth_5yr_arithmetic: Optional[float]
+    dividend_growth_10yr_arithmetic: Optional[float]
+    dividend_growth_5yr_cagr: Optional[float]
+    dividend_growth_10yr_cagr: Optional[float]
