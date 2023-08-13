@@ -7,5 +7,9 @@ class AbstractBrokerClient(ABC):
         pass
 
     @abstractmethod
+    async def send_batch_messages(self, messages):
+        pass
+
+    @abstractmethod
     async def receive_messages(self):
         pass

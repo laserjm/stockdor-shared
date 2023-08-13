@@ -47,3 +47,6 @@ class AzureStorageQueueClient(AbstractBrokerClient):
         async with queue_service_client:
             queue_client = queue_service_client.get_queue_client(queue=self.queue_name)
             await queue_client.send_message(message)
+    
+    async def send_batch_messages(self, messages):
+        return await super().send_batch_messages(messages)

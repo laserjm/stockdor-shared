@@ -2,7 +2,7 @@ from typing import Optional
 from pydantic import BaseModel
 
 
-class StockSymbolRichRequest(BaseModel):
+class StockSymbolRichRequest(BaseModel):  # FinancialEnrichmentRecord
     symbol: Optional[str]
     logo: Optional[str]
     company_name: Optional[str]

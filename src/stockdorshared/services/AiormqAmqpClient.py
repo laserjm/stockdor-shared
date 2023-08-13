@@ -99,3 +99,6 @@ class AiormqAmqpClient(AbstractBrokerClient):
         await channel.basic_publish(message, routing_key=self.queue_name)
         # Debug
         print(f" [x] Sent {message}")
+
+    async def send_batch_messages(self, messages):
+        return await super().send_batch_messages(messages)

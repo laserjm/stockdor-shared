@@ -19,6 +19,7 @@ if __name__ == "__main__":
     asyncio.run(main())
 """
 from azure.servicebus.aio import ServiceBusClient
+from azure.servicebus import ServiceBusMessage
 
 from stockdorshared.services.AbstractBrokerClient import AbstractBrokerClient
 
@@ -48,5 +49,30 @@ class AzureServiceBusClient(AbstractBrokerClient):
         ) as client:
             sender = client.get_queue_sender(queue_name=self.queue_name)
             async with sender:
-                msg = sender.message(message)
+                msg = ServiceBusMessage(message)
                 await sender.send_messages(msg)
+
+    def slice_list_into_batches(self, lst, batch_size=700):
+        for i in range(0, len(lst), batch_size):
+            yield lst[i : i + batch_size]
+    
+    async def send_batch_messages(self, messages: []):
+        batches = list(self.slice_list_into_batches(messages))
+        async with ServiceBusClient.from_connection_string(
+            conn_str=self.connection_str
+        ) as client:
+            sender = client.get_queue_sender(queue_name=self.queue_name)
+            async with sender:
+                for batch in batches:
+                    await self.send_batch_message(sender, batch)
+    
+    async def send_batch_message(self, sender, message_bodies):
+        batch_message = sender.create_message_batch()
+        for msg in message_bodies:
+            try:
+                batch_message.add_message(ServiceBusMessage(msg))
+            except ValueError:
+                # ServiceBusMessageBatch object reaches max_size.
+                # New ServiceBusMessageBatch object can be created here to send more data.
+                break
+        sender.send_messages(batch_message)
