@@ -67,7 +67,7 @@ class AzureServiceBusClient(AbstractBrokerClient):
                     await self.send_batch_message(sender, batch)
     
     async def send_batch_message(self, sender, message_bodies):
-        batch_message = sender.create_message_batch()
+        batch_message = await sender.create_message_batch()
         for msg in message_bodies:
             try:
                 batch_message.add_message(ServiceBusMessage(msg))
@@ -75,4 +75,4 @@ class AzureServiceBusClient(AbstractBrokerClient):
                 # ServiceBusMessageBatch object reaches max_size.
                 # New ServiceBusMessageBatch object can be created here to send more data.
                 break
-        sender.send_messages(batch_message)
+        await sender.send_messages(batch_message)
