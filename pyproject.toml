@@ -3,7 +3,7 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "stockdor-shared"
+name = "windfall-shared"
 version = "0.1.12"
 authors = [
   { name="Jan-Michael Laser", email="jmlaser@web.de" },
@@ -25,5 +25,5 @@ dependencies = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/laserjm/stockdor-shared"
-"Bug Tracker" = "https://github.com/laserjm/stockdor-shared/issues"
+"Homepage" = "https://github.com/laserjm/windfall-shared"
+"Bug Tracker" = "https://github.com/laserjm/windfall-shared/issues"

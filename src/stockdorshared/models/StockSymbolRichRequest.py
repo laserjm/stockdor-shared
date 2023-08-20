@@ -1,8 +1,10 @@
 from typing import Optional
 from pydantic import BaseModel
 
+from stockdorshared.models.ComputeStats import ComputeStats
 
-class StockSymbolRichRequest(BaseModel):  # FinancialEnrichmentRecord
+
+class StockSymbolRichRequest(BaseModel):
     symbol: Optional[str]
     logo: Optional[str]
     company_name: Optional[str]
@@ -14,6 +16,8 @@ class StockSymbolRichRequest(BaseModel):  # FinancialEnrichmentRecord
     sector: Optional[str]
     industry: Optional[str]
     market_cap: Optional[float]
+    # statistics
+    compute_statistics: Optional[ComputeStats]
     # dividend block start!!!!
     dividend_num_annual_payments: Optional[int]
     dividend_total_annual: Optional[float]
